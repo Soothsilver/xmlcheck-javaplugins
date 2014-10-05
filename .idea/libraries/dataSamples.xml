@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="dataSamples">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dataSamples/listing_correct.zip!/" />
+      <root url="jar://$PROJECT_DIR$/dataSamples/regex_correct.zip!/" />
+      <root url="jar://$PROJECT_DIR$/dataSamples/regex_missingSource.zip!/" />
+      <root url="jar://$PROJECT_DIR$/dataSamples/regex_incorrect.zip!/" />
+      <root url="jar://$PROJECT_DIR$/dataSamples/domSax_missingSource.zip!/" />
+      <root url="jar://$PROJECT_DIR$/dataSamples/domSax_correct.zip!/" />
+      <root url="jar://$PROJECT_DIR$/dataSamples/domSax_badSaxScript_notCompilable.zip!/" />
+      <root url="jar://$PROJECT_DIR$/dataSamples/listing_empty.zip!/" />
+      <root url="jar://$PROJECT_DIR$/dataSamples/domSax_badDomScript_exception.zip!/" />
+      <root url="jar://$PROJECT_DIR$/dataSamples/domSax_badXml_dtdMissing.zip!/" />
+      <root url="jar://$PROJECT_DIR$/dataSamples/domSax_badXml_notWellFormed.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

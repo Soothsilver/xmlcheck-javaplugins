@@ -1,0 +1,69 @@
+<project name="XQuery and DomSax Plugins From IntelliJ" default="dist" basedir=".">
+    <description>Puts the XQuery and DomSax plugins into standalone JAR files.</description>
+    <path id="class.path">
+        <fileset dir="lib">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+    <target name="init">
+        <mkdir dir="build"/>
+    </target>
+    <target name="compile" depends="init" description="compile the source" >
+        <javac srcdir="src" destdir="build" includeantruntime="false">
+            <classpath refid="class.path"/>
+        </javac>
+    </target>
+    <target name="frameworkdist" depends="compile" description="generate framework JAR" >
+        <jar jarfile="pluginBuilder/lib/AsmPluginFramework.jar" basedir="build" excludes="name/hon2a/asmp/*,name/hon2a/asmpt/*">
+            <zipfileset src="lib/tools.jar"/>
+            <zipfileset src="lib/ecs.jar"/>
+        </jar>
+    </target>
+    <target name="plugintesterdist" depends="frameworkdist" description="generate PluginTester executable" >
+        <jar jarfile="AsmPluginTester.jar" basedir="build" includes="name/hon2a/asmpt/*.class">
+            <zipfileset src="pluginBuilder/lib/AsmPluginFramework.jar"/>
+            <manifest>
+                <attribute name="Main-Class" value="name.hon2a.asmpt.PluginTester"/>
+            </manifest>
+        </jar>
+    </target>
+    <target name="listingplugindist" depends="frameworkdist" description="generate ListingPlugin executable" >
+        <jar jarfile="plugins/ListingPlugin.jar" basedir="build" includes="name/hon2a/asmp/listing/*.class">
+            <zipfileset src="pluginBuilder/lib/AsmPluginFramework.jar"/>
+            <manifest>
+                <attribute name="Main-Class" value="name.hon2a.asmp.listing.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="regexplugindist" depends="frameworkdist" description="generate RegexPlugin executable" >
+        <jar jarfile="plugins/RegexPlugin.jar" basedir="build" includes="name/hon2a/asmp/regex/*.class">
+            <zipfileset src="pluginBuilder/lib/AsmPluginFramework.jar"/>
+            <manifest>
+                <attribute name="Main-Class" value="name.hon2a.asmp.regex.Main"/>
+            </manifest>
+        </jar>
+    </target>
+    <target name="domsaxplugindist" depends="frameworkdist" description="generate DomSaxPlugin executable" >
+        <jar jarfile="plugins/DomSaxPlugin.jar" basedir="build" includes="name/hon2a/asmp/domsax/*.class">
+            <zipfileset src="pluginBuilder/lib/AsmPluginFramework.jar"/>
+            <manifest>
+                <attribute name="Main-Class" value="name.hon2a.asmp.domsax.Main"/>
+            </manifest>
+        </jar>
+    </target>
+    <target name="xqueryplugindist" depends="frameworkdist" description="generate XQueryPlugin executable" >
+        <jar jarfile="plugins/XQueryPlugin.jar" basedir="build" includes="name/hon2a/asmp/xquery/*.class">
+            <zipfileset src="pluginBuilder/lib/AsmPluginFramework.jar"/>
+            <zipfileset src="lib/saxon9.jar"/>
+            <zipfileset src="lib/saxon9-dom.jar"/>
+            <manifest>
+                <attribute name="Main-Class" value="name.hon2a.asmp.xquery.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="dist" depends="frameworkdist,plugintesterdist,listingplugindist,regexplugindist,domsaxplugindist,xqueryplugindist">
+        <delete dir="build"/>
+    </target>
+</project>

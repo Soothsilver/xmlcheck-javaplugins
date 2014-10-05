@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE netDB SYSTEM "./data.dtd">
+
+
+<netDB>
+	
+	<!-- Sítě: -->
+	
+	<net id="botanicky_ustav">
+		<owner>Botanický ústav</owner>
+		<address>
+			<city>Průhonice</city>
+			<zipCode>63996</zipCode>
+			<street>Zámek 2</street>
+		</address>
+		<protection type="hardware"/>
+		<computersNum>7</computersNum>
+		<employeesNum>0</employeesNum>
+		<webPages>
+			<webAddress>www.sample.cz</webAddress>
+		</webPages>
+		<additionalFiles>
+			<webAddress>./somefile.txt</webAddress>
+		</additionalFiles>
+		<notes>
+			-
+		</notes>
+		<contacts>
+			<contactLink idref="jana_vojirova"/>
+			<contactLink idref="david_kredba"/>
+		</contacts>
+		<domains>
+			<domain>
+				<domainName>sample.cz</domainName>
+				<primaryDNS>
+					<ipAddress>193.216.043.8</ipAddress>
+				</primaryDNS>
+				<secondaryDNS>
+					<ipAddress>130.473.486.3</ipAddress>
+				</secondaryDNS>
+				<subnetRanges>
+					<subnetRange>177.572.974.0/24</subnetRange>
+				</subnetRanges>
+			</domain>
+		</domains>
+	</net>
+
+	<net id="etnologicky_ustav">
+		<owner>Etnologický ústav</owner>
+		<address>
+			<city>Praha 2</city>
+			<zipCode>65099</zipCode>
+			<street>Na Florenci 5/1076</street>
+		</address>
+		<protection type="hardware"/>
+		<computersNum>177</computersNum>
+		<employeesNum>8</employeesNum>
+		<webPages>
+			<webAddress>www.eu.cas.cz</webAddress>
+		</webPages>
+		<additionalFiles>
+		</additionalFiles>
+		<notes>
+			Počítače jsou společné pro celou budovu.
+		</notes>
+		<contacts>
+			<contactLink idref="martin_jirik"/>
+			<contactLink idref="jan_andel"/>
+		</contacts>
+		<domains>
+			<domain>
+				<domainName>eu.cas.cz</domainName>
+				<primaryDNS>
+					<ipAddress>169.088.97.9</ipAddress>
+				</primaryDNS>
+				<secondaryDNS>
+					<ipAddress>142.592.08.4</ipAddress>
+				</secondaryDNS>
+				<subnetRanges>
+					<subnetRange>106.413.63.9/64</subnetRange>
+				</subnetRanges>
+			</domain>
+		</domains>
+	</net>
+
+	<net id="fyzikalni_ustav">
+		<owner>Fyzikální ústav</owner>
+		<address>
+			<city>Praha 1</city>
+			<zipCode>23909</zipCode>
+			<street>Cukrovarnická 52</street>
+		</address>
+		<protection type="software"/>
+		<computersNum>627</computersNum>
+		<employeesNum>3</employeesNum>
+		<webPages>
+			<webAddress>www.fzu.cz</webAddress>
+		</webPages>
+		<additionalFiles>
+		</additionalFiles>
+		<notes>
+			A někde potřebujeme demonstrovat i sekci CDATA,
+			což se nám <![CDATA[<logicky>]]> nehodí.
+		</notes>
+		<contacts>
+			<contactLink idref="m_kratky"/>
+			<contactLink idref="t_fiala"/>
+		</contacts>
+		<domains>
+			<domain>
+				<domainName>fzu.cz</domainName>
+				<primaryDNS>
+					<ipAddress>153.288.35.720</ipAddress>
+				</primaryDNS>
+				<secondaryDNS>
+					<ipAddress>189.267.033.182</ipAddress>
+				</secondaryDNS>
+				<subnetRanges>
+					<subnetRange>172.033.75.4/73</subnetRange>
+				</subnetRanges>
+			</domain>
+		</domains>
+	</net>
+
+	<net id="fyzikalni_ustav_7">
+		<owner>Fyzikální ústav (Praha 4)</owner>
+		<address>
+			<city>Praha 4</city>
+			<zipCode>86143</zipCode>
+			<street>Na Slovance 8</street>
+		</address>
+		<protection type="software"/>
+		<computersNum>226</computersNum>
+		<employeesNum>5</employeesNum>
+		<webPages>
+		</webPages>
+		<additionalFiles>
+			<webAddress>./fzu4/sometext.txt</webAddress>
+		</additionalFiles>
+		<notes>
+			Detaily site jsou na <webAddress>www.detailysite.cz</webAddress>, dotazy lze posilat na <email>admin&at;fzu.cz</email>.
+		</notes>
+		<contacts>
+			<contactLink idref="t_fiala"/>
+			<contactLink idref="m_kratky"/>
+		</contacts>
+		<domains>
+			<domain>
+				<domainName>subdomain.fzu.cz</domainName>
+				<primaryDNS>
+					<ipAddress>103.982.24.422</ipAddress>
+				</primaryDNS>
+				<secondaryDNS>
+					<ipAddress>192.333.276.712</ipAddress>
+				</secondaryDNS>
+				<subnetRanges>
+					<subnetRange>180.794.33.0/61</subnetRange>
+				</subnetRanges>
+			</domain>
+		</domains>
+	</net>
+	
+	<!-- Kontakty: -->
+	
+	<contact id="martin_jirik">
+		<name>
+			<firstName>Martin</firstName>
+			<lastName>Jiřík</lastName>
+		</name>
+		<phoneNumber>360460455</phoneNumber>
+	</contact>
+
+	<contact id="jan_andel">
+		<name>
+			<firstName>Jan</firstName>
+			<lastName>Anděl</lastName>
+		</name>
+		<phoneNumber type="mobile">518972486</phoneNumber>
+		<email>andel@domena.cz</email>
+	</contact>
+
+	<contact id="jana_vojirova">
+		<name>
+			<firstName>Jana</firstName>
+			<lastName>Vojířová</lastName>
+		</name>
+		<phoneNumber type="wired">202131845</phoneNumber>
+		<phoneNumber type="mobile">373793221</phoneNumber>
+		<email>vojirova@domena.cz</email>
+	</contact>
+
+	<contact id="david_kredba">
+		<name>
+			<firstName>David</firstName>
+			<lastName>Kredba</lastName>
+		</name>
+		<phoneNumber>421508617</phoneNumber>
+		<email>kredba@domena.cz</email>
+	</contact>
+
+	<contact id="m_kratky">
+		<name>
+			<firstName>M.</firstName>
+			<lastName>Krátký</lastName>
+		</name>
+		<phoneNumber type="mobile">427388963</phoneNumber>
+		<email>kratky@domena.cz</email>
+	</contact>
+
+	<contact id="t_fiala">
+		<name>
+			<firstName>T.</firstName>
+			<lastName>Fiala</lastName>
+		</name>
+		<phoneNumber>144005460</phoneNumber>
+		<email>fiala@domena.cz</email>
+	</contact>
+
+	<?php echo find_contacts_in_old_database(); ?>
+
+</netDB>

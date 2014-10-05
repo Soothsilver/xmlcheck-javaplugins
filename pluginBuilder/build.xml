@@ -1,0 +1,45 @@
+<project name="Plugin" default="dist" basedir=".">
+	<description>Builds project and packs it into a single JAR file</description>
+
+	<property file="build.properties"/>
+
+	<path id="class.path">
+	  <fileset dir="${lib.dir}">
+		 <include name="**/*.jar" />
+	  </fileset>
+	</path>
+
+	<target name="init">
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+	<target name="compile" depends="init" description="compile the source" >
+		<javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
+			<classpath refid="class.path"/>
+		</javac>
+	</target>
+
+	<target name="dist" depends="compile" description="generate the distribution" >
+		<jar jarfile="${plugin.name}.jar" basedir="${build.dir}">
+
+			<zipfileset src="${lib.dir}/AsmPluginFramework.jar"/>
+
+			<!-- Edit this part to add more libraries. First add them to ${lib.dir}
+				folder (specified in build.properties file). Then link here such as:
+
+				<zipfileset src="${lib.dir}/MY_CUSTOM_LIBRARY.jar"/>
+			-->
+
+			<!-- Do not edit below this point. -->
+
+			<manifest>
+				<attribute name="Main-Class" value="${main.class}"/>
+			</manifest>
+		</jar>
+		<delete dir="${build.dir}"/>
+	</target>
+
+	<target name="clean" description="clean up" >
+		<delete dir="${build.dir}"/>
+	</target>
+</project>
