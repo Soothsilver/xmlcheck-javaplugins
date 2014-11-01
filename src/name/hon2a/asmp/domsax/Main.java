@@ -29,9 +29,7 @@ public class Main extends TesterPlugin {
 	 */
 	public static void main (String[] args) {
 		Plugin self = new Main();
-        //System.out.println(self.run(new String[] { "D:\\Skydrive\\Projekty Java\\smallTest\\src\\warplan_java7.zip" }));
 		System.out.println(self.run(args));
-		//System.out.println(self.run(new String[] { "C:\\Users\\hon2a\\Documents\\school\\Java\\zapoctak\\implementace_built\\dataSamples\\domSax_correct_UTF8.zip" }));
 	}
 
 	/**

@@ -165,7 +165,7 @@ public class UnicodeBOMInputStream extends InputStream
           this.bom = BOM.UTF_32_BE;
           break;
         }
-
+        // Fall-thru:
       case 3:
         if ((bom[0] == (byte)0xEF) &&
             (bom[1] == (byte)0xBB) &&
@@ -175,6 +175,7 @@ public class UnicodeBOMInputStream extends InputStream
           break;
         }
 
+          // Fall-thru:
       case 2:
         if ((bom[0] == (byte)0xFF) &&
             (bom[1] == (byte)0xFE))
@@ -190,6 +191,7 @@ public class UnicodeBOMInputStream extends InputStream
           break;
         }
 
+          // Fall-thru:
       default:
         this.bom = BOM.NONE;
         break;

@@ -1,11 +1,13 @@
 package name.hon2a.asm;
 
+import org.apache.ecs.xml.XML;
+import org.apache.ecs.xml.XMLDocument;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
-import org.apache.ecs.xml.*;
 
 /**
  * Abstract plugin for Assignment Manager.
@@ -72,7 +74,6 @@ public abstract class Plugin {
 		 *
 		 * @return %Criterion status as Results.
 		 * @throws PluginException in case of inconsistent plugin state.
-		 * @todo Future versions should implement also criterion weights.
 		 */
 		protected abstract Results check () throws PluginException;
 	}
@@ -147,6 +148,16 @@ public abstract class Plugin {
 			this.dataFolder = Utils.createTempDirectory();
 			File dataFile = new File(args[0]);
 			Utils.unzip(dataFile, this.dataFolder);
+
+            // If the contents is a single folder, extract it.
+            // Sometimes students zip not just the contents of the homework, but the enclosing folder as well.
+            // This will accept that.
+            File[] files = this.dataFolder.listFiles();
+            if (files.length == 1 && files[0].isDirectory())
+            {
+                Utils.copyDirectory(files[0], this.dataFolder);
+            }
+
 			this.outputFolder = Utils.createTempDirectory();
 
 			String[] params = new String[args.length - 1];

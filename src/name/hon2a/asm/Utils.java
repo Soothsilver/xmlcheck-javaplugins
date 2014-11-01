@@ -1,30 +1,12 @@
 package name.hon2a.asm;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
-import java.util.AbstractCollection;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -43,6 +25,34 @@ public class Utils {
 	public static final String INDENT_STRING = "   "; ///< default indentation string
 
 	private static final int BUFFER_SIZE = 2048; ///< default buffer size
+
+    /**
+     * Copies the contents of the source directory into the second directory.
+     * Code by Archimedes Trajano at http://stackoverflow.com/a/10068306/1580088
+     * @param sourceDirectory directory to copy contents from
+     * @param copyInto files and directories from the first directory will be copied into this one
+     */
+    public static void copyDirectory(File sourceDirectory, File copyInto) throws IOException {
+        final Path targetPath = copyInto.toPath();
+        final Path sourcePath = sourceDirectory.toPath();
+        Files.walkFileTree(sourcePath, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory(final Path dir,
+                                                     final BasicFileAttributes attrs) throws IOException {
+                Files.createDirectories(targetPath.resolve(sourcePath
+                        .relativize(dir)));
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(final Path file,
+                                             final BasicFileAttributes attrs) throws IOException {
+                Files.copy(file,
+                        targetPath.resolve(sourcePath.relativize(file)));
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
 
 	/**
 	 * Create temporary file with given extension.
@@ -114,7 +124,9 @@ public class Utils {
 	public static String loadTextFile (File source) throws FileNotFoundException, IOException {
 		StringBuilder textContent = new StringBuilder(BUFFER_SIZE);
 		FileInputStream fi = new FileInputStream(source);
+
 		UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(fi).skipBOM();
+
 		InputStreamReader ir;
 		try {
 			ir = new InputStreamReader(ubis, "UTF-8");
@@ -122,7 +134,9 @@ public class Utils {
 			ir = new InputStreamReader(ubis);
 		}
 
-		Reader reader = new BufferedReader(ir, BUFFER_SIZE);
+
+
+        Reader reader = new BufferedReader(ir, BUFFER_SIZE);
 		char[] buf = new char[BUFFER_SIZE];
 		int numRead = 0;
 

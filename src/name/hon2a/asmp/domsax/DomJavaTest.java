@@ -1,21 +1,22 @@
 package name.hon2a.asmp.domsax;
 
+import name.hon2a.asm.TestCodeException;
+import name.hon2a.asm.TestDataException;
+import name.hon2a.asm.TestException;
+import name.hon2a.asme.JavaTest;
+import org.w3c.dom.Document;
+
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import name.hon2a.asm.TestCodeException;
-import name.hon2a.asm.TestDataException;
-import name.hon2a.asm.TestException;
-import name.hon2a.asme.JavaTest;
-import org.w3c.dom.Document;
 
 /**
  * Test that compiles supplied XML transformation script in Java and runs it on
@@ -70,6 +71,7 @@ public class DomJavaTest extends JavaTest {
 	 */
 	@Override
 	protected void doTest () throws TestException {
+
 		this.requireSources(DomJavaTest.sourceJava, DomJavaTest.sourceXml);
 		this.requireParams(DomJavaTest.paramDomScript, DomJavaTest.paramOutputFile);
 
@@ -113,6 +115,7 @@ public class DomJavaTest extends JavaTest {
 				new ByteArrayInputStream(baos.toByteArray()));
 
 		this.getGoal(DomJavaTest.goalTransformXml).reach();
+
 	}
 
 }
