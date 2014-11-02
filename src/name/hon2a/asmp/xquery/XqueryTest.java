@@ -5,17 +5,6 @@
 
 package name.hon2a.asmp.xquery;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.regex.Pattern;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.dom.DOMSource;
 import name.hon2a.asm.Test;
 import name.hon2a.asm.TestException;
 import name.hon2a.asm.Utils;
@@ -27,14 +16,29 @@ import net.sf.saxon.query.XQueryExpression;
 import net.sf.saxon.trans.XPathException;
 import org.w3c.dom.Document;
 
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.dom.DOMSource;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author hon2a
  */
 public class XqueryTest extends Test {
 
+    private File dataFolder;
+
 	public static final String sourceXml = "xmlDocument"; ///< source ID of xml document
-	public static final String sourceXqueryMask = "xqueryMask"; ///< ID of xquery source mask
+	public static final String sourceXqueryMask = "xqueryMaskLegacy"; ///< ID of xquery source mask (before 2015)
+    public static final String sourceXqueryMaskLegacy = "xqueryMask"; ///< ID of xquery source mask
 
 	public static final String paramQueryCountMin = "queryCountMin"; ///< param ID of min. query count param
 	public static final String paramOutputXmlMask = "outputXmlMask"; ///< param ID of output xml path mask
@@ -47,8 +51,9 @@ public class XqueryTest extends Test {
 	 * Required source: XqueryTest::sourceXml, XqueryTest::sourceXqueryMask;
 	 * required parameters: none.
 	 */
-	public XqueryTest (Map<String, String> sources, Map<String, String> params, File outputFolder) {
+	public XqueryTest (Map<String, String> sources, Map<String, String> params, File dataFolder, File outputFolder) {
 		super(sources, params, outputFolder);
+        this.dataFolder = dataFolder;
 	}
 
 	@Override
@@ -62,7 +67,17 @@ public class XqueryTest extends Test {
 	protected void doTest () throws TestException {
 		this.requireSources(XqueryTest.sourceXml);
 
-		String xqueryPathMask = this.getSourcePath(XqueryTest.sourceXqueryMask);
+        File[] files = this.dataFolder.listFiles();
+        String maskToUse = XqueryTest.sourceXqueryMask;
+        for (File file : files)
+        {
+            if (file.isDirectory() && file.getName().toUpperCase().equals("XQUERY"))
+            {
+                maskToUse = XqueryTest.sourceXqueryMaskLegacy;
+            }
+        }
+
+		String xqueryPathMask = this.getSourcePath(maskToUse);
 		String[] queries = this.loadQueries(xqueryPathMask);
 
 		int queryCountMin = Integer.parseInt(this.getParam(XqueryTest.paramQueryCountMin));

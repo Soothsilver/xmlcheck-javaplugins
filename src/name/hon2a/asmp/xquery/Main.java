@@ -35,11 +35,14 @@ public class Main extends SingleTestPlugin {
 		
 		this.setTest(new XqueryTest(Utils.createStringMap(
 				XqueryTest.sourceXml, this.getSourcePath("data.xml"),
-				XqueryTest.sourceXqueryMask, this.getSourcePath("xquery/query%d.xq")
+				XqueryTest.sourceXqueryMaskLegacy, this.getSourcePath("xquery/query%d.xq"),
+                XqueryTest.sourceXqueryMask, this.getSourcePath("query%d.xq")
 			), Utils.createStringMap(
 				XqueryTest.paramQueryCountMin, queryCountMin.toString(),
 				XqueryTest.paramOutputXmlMask, "xqueryXml%d.xml"
-			), this.getOutputFile(".")));
+			),
+                this.getSourceFile("."),
+                this.getOutputFile(".")));
 	}
 
 }
