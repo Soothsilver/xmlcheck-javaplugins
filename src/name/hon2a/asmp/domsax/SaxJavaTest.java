@@ -1,15 +1,16 @@
 package name.hon2a.asmp.domsax;
 
-import java.io.*;
-import java.util.Map;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import name.hon2a.asm.TestCodeException;
 import name.hon2a.asm.TestDataException;
 import name.hon2a.asm.TestException;
 import name.hon2a.asme.JavaTest;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.*;
+import java.util.Map;
 
 /**
  * @author hon2a
@@ -61,7 +62,11 @@ public class SaxJavaTest extends JavaTest {
 	protected void doTest () throws TestException {
 		this.requireSources(SaxJavaTest.sourceJava, SaxJavaTest.sourceXml);
 		this.requireParams(SaxJavaTest.paramSaxScript, SaxJavaTest.paramOutputFile);
-
+		PrintStream systemOutStream = System.out;
+		PrintStream systemErrStream = System.err;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(baos));
+		System.setErr(new PrintStream(new NullOutputStream()));
 
 		File sourcePath = this.getSourceFile(SaxJavaTest.sourceJava);
 		this.compileJavaSources(sourcePath);
@@ -86,12 +91,7 @@ public class SaxJavaTest extends JavaTest {
 
 		File inputFile = this.getSourceFile(SaxJavaTest.sourceXml);
 		String xmlInputString = this.loadTextFile(inputFile);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-		PrintStream systemOutStream = System.out;
-        PrintStream systemErrStream = System.err;
-		System.setOut(new PrintStream(baos));
-        System.setErr(new PrintStream(new NullOutputStream()));
 
 		try {
 			saxParser.parse(new ByteArrayInputStream(xmlInputString.getBytes()), userHandler,
